@@ -1,7 +1,7 @@
 require 'nokogiri'
 require_relative 'comment'
 require_relative 'post'
-
+require 'pry'
 #prototype test
 doc = Nokogiri::HTML(File.open('post.html'))
 
@@ -29,8 +29,14 @@ temp2 = doc.search('tr.athing > td:nth-child(3) > a').map { |link| link['href']}
 temp3 = doc.search('.subtext > span:first-child').map { |span| span.inner_text}
 temp4 = doc.search('.subtext > a:nth-child(3)').map {|link| link['href'] }
 temp5 = doc.search('.comment > font:first-child').map { |font| font.inner_text}
+a_post = Post.new(temp1,temp2,temp3,temp4)
+temp5.each do |a_comment|
+  temp6 = Comment.new(a_comment)
+  a_post.add_comment(temp6)
 
-a_post = Post.new(temp1,temp2,temp3,temp4,temp5)
+end
+binding.pry
+
 
 #puts a_post.comments
 
@@ -38,4 +44,5 @@ puts "#{a_post.title}"
 puts "#{a_post.url}"
 puts "#{a_post.points}"
 puts "#{a_post.item_id}"
+puts "#{a_post.comments}"
 
