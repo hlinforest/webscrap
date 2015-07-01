@@ -2,8 +2,19 @@ require 'nokogiri'
 require_relative 'comment'
 require_relative 'post'
 require 'pry'
+require 'open-uri'
 #prototype test
-doc = Nokogiri::HTML(File.open('post.html'))
+
+
+a_html = ARGV[0]
+html_file = open(a_html)
+doc = Nokogiri::HTML(File.open(html_file))
+#binding.pry
+
+# require 'open-uri'
+
+# html_file = open(a_html)
+# puts html_file.read
 
 # def extract_usernames(doc)
 #   doc.search('.comhead > a:first-child').map do |element|
